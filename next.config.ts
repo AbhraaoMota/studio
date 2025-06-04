@@ -18,7 +18,8 @@ const nextConfig: NextConfig = {
       '@genkit-ai/googleai',
       '@genkit-ai/next',
       '@opentelemetry/sdk-trace-node',
-      '@opentelemetry/context-async-hooks'
+      '@opentelemetry/context-async-hooks',
+      '@opentelemetry/api'
     ],
   },
 };
