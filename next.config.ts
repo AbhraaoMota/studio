@@ -13,7 +13,13 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    serverComponentsExternalPackages: ['@opentelemetry/sdk-trace-node', '@opentelemetry/context-async-hooks'],
+    serverComponentsExternalPackages: [
+      'genkit',
+      '@genkit-ai/googleai',
+      '@genkit-ai/next',
+      '@opentelemetry/sdk-trace-node',
+      '@opentelemetry/context-async-hooks'
+    ],
   },
 };
 
