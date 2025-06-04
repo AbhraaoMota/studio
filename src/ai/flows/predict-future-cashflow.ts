@@ -1,4 +1,5 @@
-// use server'
+
+'use server';
 
 /**
  * @fileOverview Predicts future cash flow based on historical data and financial goals.
@@ -62,4 +63,3 @@ const predictFutureCashFlowFlow = ai.defineFlow(
     return output!;
   }
 );
-
