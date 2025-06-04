@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    serverComponentsExternalPackages: ['@opentelemetry/sdk-trace-node'],
+  },
 };
 
 export default nextConfig;
