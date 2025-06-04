@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    serverComponentsExternalPackages: ['@opentelemetry/sdk-trace-node'],
+    serverComponentsExternalPackages: ['@opentelemetry/sdk-trace-node', '@opentelemetry/context-async-hooks'],
   },
 };
 
