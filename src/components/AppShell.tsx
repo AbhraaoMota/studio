@@ -106,7 +106,7 @@ function MainSidebar() {
   const isCollapsed = state === 'collapsed';
 
   return (
-    <Sidebar collapsible="icon" variant="sidebar" side="left" defaultOpen={true} className="border-r">
+    <Sidebar collapsible="icon" variant="sidebar" side="left" className="border-r">
       <SidebarHeader className={isCollapsed ? 'justify-center' : 'justify-between'}>
         <AppLogo collapsed={isCollapsed} />
         {!isCollapsed && <SidebarTrigger className="md:hidden" />}
