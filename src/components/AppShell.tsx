@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -54,7 +55,6 @@ const navItems: NavItem[] = [
   { href: '/lancamentos', icon: ListPlus, label: 'Lançamentos', tooltip: 'Lançamentos' },
   { href: '/relatorios', icon: ScrollText, label: 'Relatórios', tooltip: 'Relatórios' },
   { href: '/metas', icon: Target, label: 'Metas Financeiras', tooltip: 'Metas' },
-  { href: '/previsoes', icon: BarChartBig, label: 'Previsões IA', tooltip: 'Previsões IA' },
 ];
 
 const settingsItem: NavItem = { href: '/configuracoes', icon: Settings, label: 'Configurações', tooltip: 'Configurações'};
