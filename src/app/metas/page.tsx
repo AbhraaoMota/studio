@@ -1,3 +1,4 @@
+
 "use client";
 
 import AppShell from '@/components/AppShell';
@@ -7,15 +8,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { FinancialGoal } from '@/lib/types';
-import { PlusCircle, Target, Edit3, Trash2, CalendarIcon, DollarSign } from 'lucide-react';
-import React, { useState } from 'react';
+import { getFromLocalStorage, saveToLocalStorage } from '@/lib/utils';
+import { PlusCircle, Target, Edit3, Trash2, CalendarIcon } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
 
-const initialGoals: FinancialGoal[] = [];
+const GOALS_STORAGE_KEY = 'acontafacil-goals';
 
 const GoalCard = ({ goal, onEdit, onDelete }: { goal: FinancialGoal, onEdit: (goal: FinancialGoal) => void, onDelete: (id: string) => void }) => {
   const progress = goal.targetAmount > 0 ? (goal.currentAmount / goal.targetAmount) * 100 : 0;
@@ -51,12 +53,21 @@ const GoalCard = ({ goal, onEdit, onDelete }: { goal: FinancialGoal, onEdit: (go
 
 export default function MetasPage() {
   const { toast } = useToast();
-  const [goals, setGoals] = useState<FinancialGoal[]>(initialGoals);
+  const [goals, setGoals] = useState<FinancialGoal[]>([]);
   const [goalName, setGoalName] = useState('');
   const [targetAmount, setTargetAmount] = useState('');
   const [currentAmount, setCurrentAmount] = useState('');
   const [targetDate, setTargetDate] = useState<Date | undefined>();
   const [isEditing, setIsEditing] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadedGoals = getFromLocalStorage<FinancialGoal[]>(GOALS_STORAGE_KEY, []);
+    setGoals(loadedGoals);
+  }, []);
+
+  useEffect(() => {
+    saveToLocalStorage(GOALS_STORAGE_KEY, goals);
+  }, [goals]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,7 +87,6 @@ export default function MetasPage() {
       return;
     }
 
-
     if (isEditing) {
       setGoals(goals.map(g => g.id === isEditing ? { ...g, name: goalName, targetAmount: numTargetAmount, currentAmount: numCurrentAmount, targetDate: targetDate?.toISOString() } : g));
       toast({ title: "Sucesso", description: "Meta atualizada!" });
@@ -90,10 +100,10 @@ export default function MetasPage() {
         targetDate: targetDate?.toISOString(),
         createdAt: new Date().toISOString(),
       };
-      setGoals([newGoal, ...goals]);
+      setGoals(prevGoals => [newGoal, ...prevGoals]);
       toast({ title: "Sucesso", description: "Nova meta adicionada!" });
     }
-    // Reset form
+    
     setGoalName('');
     setTargetAmount('');
     setCurrentAmount('');

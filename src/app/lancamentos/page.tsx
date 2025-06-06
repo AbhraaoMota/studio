@@ -1,3 +1,4 @@
+
 "use client";
 
 import AppShell from '@/components/AppShell';
@@ -7,7 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Transaction, Category, allCategories, incomeCategories, expenseCategories } from '@/lib/types';
+import { Transaction, Category, incomeCategories, expenseCategories } from '@/lib/types';
+import { getFromLocalStorage, saveToLocalStorage } from '@/lib/utils';
 import { PlusCircle, Edit3, Trash2, CalendarIcon } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -16,23 +18,31 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
 
-const initialTransactions: Transaction[] = [];
+const TRANSACTIONS_STORAGE_KEY = 'acontafacil-transactions';
 
 export default function LancamentosPage() {
   const { toast } = useToast();
-  const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [description, setDescription] = useState('');
-  const [amount, setAmount] = useState<string>(''); // Store as string for input
+  const [amount, setAmount] = useState<string>('');
   const [type, setType] = useState<'income' | 'expense'>('expense');
   const [category, setCategory] = useState<Category | ''>('');
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [isEditing, setIsEditing] = useState<string | null>(null);
-
   const [currentCategories, setCurrentCategories] = useState<Category[]>(expenseCategories);
 
   useEffect(() => {
+    const loadedTransactions = getFromLocalStorage<Transaction[]>(TRANSACTIONS_STORAGE_KEY, []);
+    setTransactions(loadedTransactions);
+  }, []);
+
+  useEffect(() => {
+    saveToLocalStorage(TRANSACTIONS_STORAGE_KEY, transactions);
+  }, [transactions]);
+
+  useEffect(() => {
     setCurrentCategories(type === 'income' ? incomeCategories : expenseCategories);
-    setCategory(''); // Reset category when type changes
+    setCategory(''); 
   }, [type]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -60,10 +70,10 @@ export default function LancamentosPage() {
         category,
         date: date.toISOString(),
       };
-      setTransactions([newTransaction, ...transactions]);
+      setTransactions(prevTransactions => [newTransaction, ...prevTransactions]);
       toast({ title: "Sucesso", description: "Lançamento adicionado!" });
     }
-    // Reset form
+    
     setDescription('');
     setAmount('');
     setType('expense');
