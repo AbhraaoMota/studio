@@ -15,11 +15,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
 
-const initialGoals: FinancialGoal[] = [
-  { id: '1', name: 'Viagem para Europa', targetAmount: 15000, currentAmount: 9000, targetDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(), createdAt: new Date().toISOString() },
-  { id: '2', name: 'Reserva de Emergência', targetAmount: 10000, currentAmount: 8500, createdAt: new Date().toISOString() },
-  { id: '3', name: 'Novo Notebook', targetAmount: 7000, currentAmount: 1500, targetDate: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toISOString(), createdAt: new Date().toISOString() },
-];
+const initialGoals: FinancialGoal[] = [];
 
 const GoalCard = ({ goal, onEdit, onDelete }: { goal: FinancialGoal, onEdit: (goal: FinancialGoal) => void, onDelete: (id: string) => void }) => {
   const progress = goal.targetAmount > 0 ? (goal.currentAmount / goal.targetAmount) * 100 : 0;

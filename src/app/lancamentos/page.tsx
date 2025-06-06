@@ -16,11 +16,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
 
-const initialTransactions: Transaction[] = [
-  { id: '1', date: new Date().toISOString(), description: 'Salário Mensal', amount: 5000, type: 'income', category: 'Salário' },
-  { id: '2', date: new Date(Date.now() - 86400000 * 2).toISOString(), description: 'Aluguel', amount: 1200, type: 'expense', category: 'Moradia' },
-  { id: '3', date: new Date(Date.now() - 86400000 * 5).toISOString(), description: 'Supermercado', amount: 350, type: 'expense', category: 'Alimentação' },
-];
+const initialTransactions: Transaction[] = [];
 
 export default function LancamentosPage() {
   const { toast } = useToast();
