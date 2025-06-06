@@ -99,7 +99,7 @@ export default function RelatoriosPage() {
     <AppShell>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <h1 className="text-3xl font-bold font-headline text-foreground">Relatórios Financeiros</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold font-headline text-foreground">Relatórios Financeiros</h1>
           <div className="flex gap-2">
             <Select defaultValue="monthly" disabled> {/* Filter disabled for now */}
               <SelectTrigger className="w-[180px]">
@@ -195,7 +195,7 @@ export default function RelatoriosPage() {
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="font-headline">Relatório de Fluxo de Caixa Detalhado</CardTitle>
-            <CardDescription>Lista de todas as transações (em desenvolvimento).</CardDescription>
+            <CardDescription>Lista de todas as transações.</CardDescription>
           </CardHeader>
           <CardContent>
              {transactions.length > 0 ? (
@@ -210,7 +210,7 @@ export default function RelatoriosPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {transactions.slice(0, 10).map(t => ( // Displaying first 10 transactions as a preview
+                  {transactions.map(t => ( 
                     <TableRow key={t.id}>
                       <TableCell>{format(new Date(t.date), "dd/MM/yyyy", { locale: ptBR })}</TableCell>
                       <TableCell className="font-medium">{t.description}</TableCell>
@@ -226,8 +226,6 @@ export default function RelatoriosPage() {
              ) : (
               <p className="text-muted-foreground py-4 text-center">Nenhum lançamento para exibir no relatório detalhado.</p>
              )}
-            {transactions.length > 10 && <p className="text-muted-foreground text-sm mt-2 text-center">Exibindo os 10 lançamentos mais recentes. Funcionalidade completa em desenvolvimento.</p>}
-
           </CardContent>
         </Card>
 
@@ -235,4 +233,3 @@ export default function RelatoriosPage() {
     </AppShell>
   );
 }
-

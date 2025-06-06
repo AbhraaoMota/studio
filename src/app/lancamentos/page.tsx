@@ -98,7 +98,7 @@ export default function LancamentosPage() {
   return (
     <AppShell>
       <div className="flex flex-col gap-6">
-        <h1 className="text-3xl font-bold font-headline text-foreground">Lançamentos</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold font-headline text-foreground">Lançamentos</h1>
         
         <Card className="shadow-lg">
           <CardHeader>

@@ -10,7 +10,7 @@ export default function ConfiguracoesPage() {
   return (
     <AppShell>
       <div className="flex flex-col gap-6">
-        <h1 className="text-3xl font-bold font-headline text-foreground">Configurações</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold font-headline text-foreground">Configurações</h1>
 
         <div className="grid gap-6 md:grid-cols-2">
           <Card className="shadow-lg">

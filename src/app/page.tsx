@@ -104,7 +104,7 @@ export default function DashboardPage() {
     <AppShell>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <h1 className="text-3xl font-bold font-headline text-foreground">Painel de Controle</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold font-headline text-foreground">Painel de Controle</h1>
           <Link href="/lancamentos" passHref>
             <Button>
               <PlusCircle className="mr-2 h-4 w-4" /> Novo Lançamento
@@ -124,7 +124,7 @@ export default function DashboardPage() {
             <CardDescription>Visão geral das suas receitas e despesas (últimos 6 meses).</CardDescription>
           </CardHeader>
           <CardContent className="h-[350px] p-2">
-            {chartData.length > 0 ? (
+            {chartData.length > 0 && chartData.some(d => d.income > 0 || d.expenses > 0 || d.balance !== 0) ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
